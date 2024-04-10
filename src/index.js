@@ -10,17 +10,19 @@ function intToPosition(intgr) {
 }
 
 function isMoveLegit(pos, sizes, actions) {
-  // all parameters are in an array. one position, return true if within bounds
+  // all parameters are arrays. Returns true if the move is within bounds of the board
   const action = {
     add: (a, b) => a + b,
     sub: (a, b) => a - b,
   };
   const results = [];
   for (let i = 0; i < 2; i += 1) {
-    results.push(action[actions[i]](pos[i], sizes[i])());
-    // doesnt work
+    results.push(action[actions[i]](pos[i], sizes[i]));
   }
-  console.log(results);
+  if (results[0] >= 0 && results[0] < 8) {
+    if (results[1] >= 0 && results[1] < 8) return true;
+  }
+  return false;
 }
 
 function nextMove(pos) {
@@ -41,7 +43,7 @@ const test = [1, 4];
 const intTest = positionToInt(test);
 console.log(intTest);
 console.log(intToPosition(intTest));
-isMoveLegit([0, 2], [1, 2], ['add', 'add']);
+console.log(isMoveLegit([4, 2], [1, 2], ['add', 'add']));
 // const knightMoves = (function knightMoves(start, end) {
 
 // })();
