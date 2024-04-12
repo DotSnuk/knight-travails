@@ -1,5 +1,4 @@
 function positionToInt(arr) {
-  // add a check to see if both are less then 8.
   return arr[0] + 8 * arr[1];
 }
 
@@ -63,13 +62,6 @@ function getGraph() {
   return graph;
 }
 
-const test = [1, 4];
-const intTest = positionToInt(test);
-console.log(intTest);
-console.log(intToPosition(intTest));
-console.log(isMoveLegit([4, 2], [1, 2], ['add', 'add']));
-// const mvs = getPossibleMoves([2, 1]);
-// console.log(mvs);
 const knightGraph = getGraph();
 console.table(knightGraph);
 // const knightMoves = (function knightMoves(start, end) {
