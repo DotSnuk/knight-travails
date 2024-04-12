@@ -18,19 +18,21 @@ function getCalcSize(pos, size, action) {
 }
 
 function isMoveLegit(pos, sizes, actions) {
-  // all parameters are arrays. Returns true if the move is within bounds of the board
+  // all parameters are arrays
+  // returns the possible move if it is legit. Else returns false
   const results = [];
   for (let i = 0; i < 2; i += 1) {
     results.push(getCalcSize(pos[i], sizes[i], actions[i]));
   }
   if (results[0] >= 0 && results[0] < 8) {
-    if (results[1] >= 0 && results[1] < 8) return true;
+    if (results[1] >= 0 && results[1] < 8) return [results[0], results[1]];
   }
   return false;
 }
 
-function nextMove(pos) {
+function getPossibleMoves(pos) {
   const total = 3;
+  const possibleMoves = [];
   const combinations = [
     ['add', 'add'],
     ['add', 'sub'],
@@ -41,13 +43,20 @@ function nextMove(pos) {
     const x = total - i;
     const y = total - x;
     combinations.forEach(comb => {
-      if (isMoveLegit(pos, [x, y], comb)) {
-        // temporary
-        const nextX = getCalcSize(pos[0], x, comb[0]);
-        const nextY = getCalcSize(pos[1], y, comb[1]);
-        console.log(`Possible move from ${pos}: [${nextX}, ${nextY}]`);
+      const move = isMoveLegit(pos, [x, y], comb);
+      if (move !== false) {
+        possibleMoves.push(positionToInt(move));
+        console.log(`Possible move from ${pos}: ${move}`);
       }
     });
+  }
+  return possibleMoves;
+}
+
+function getGraph() {
+  const graph = [];
+  for (let y = 0; y < 8; y += 1) {
+    for (let x = 0; x < 8; x += 1) {}
   }
 }
 
@@ -56,7 +65,8 @@ const intTest = positionToInt(test);
 console.log(intTest);
 console.log(intToPosition(intTest));
 console.log(isMoveLegit([4, 2], [1, 2], ['add', 'add']));
-nextMove([3, 3]);
+const mvs = getPossibleMoves([2, 1]);
+console.log(mvs);
 // const knightMoves = (function knightMoves(start, end) {
 
 // })();
