@@ -56,8 +56,11 @@ function getPossibleMoves(pos) {
 function getGraph() {
   const graph = [];
   for (let y = 0; y < 8; y += 1) {
-    for (let x = 0; x < 8; x += 1) {}
+    for (let x = 0; x < 8; x += 1) {
+      graph.push(getPossibleMoves([x, y]));
+    }
   }
+  return graph;
 }
 
 const test = [1, 4];
@@ -65,8 +68,10 @@ const intTest = positionToInt(test);
 console.log(intTest);
 console.log(intToPosition(intTest));
 console.log(isMoveLegit([4, 2], [1, 2], ['add', 'add']));
-const mvs = getPossibleMoves([2, 1]);
-console.log(mvs);
+// const mvs = getPossibleMoves([2, 1]);
+// console.log(mvs);
+const knightGraph = getGraph();
+console.table(knightGraph);
 // const knightMoves = (function knightMoves(start, end) {
 
 // })();
