@@ -28,6 +28,8 @@ export default function createList() {
     size -= 1;
   };
 
+  const getValue = (node = tail()) => node.value;
+
   const getNode = (node, howDeep) => {
     if (howDeep === 0) return node;
     if (node.next === null && howDeep >= 1) return false;
@@ -125,6 +127,7 @@ export default function createList() {
     append,
     getHead,
     logList,
+    getValue,
     logHead,
     prepend,
     increaseSize,

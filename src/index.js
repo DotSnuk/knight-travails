@@ -71,6 +71,11 @@ function getGraph() {
 
 const knightGraph = getGraph();
 
+function searchBFS(queue, end) {
+  const current = queue.shift();
+  console.log(current.getValue());
+}
+
 function knightMoves(start, end) {
   const queue = [];
   knightGraph[positionToInt(start)].forEach(move => {
@@ -78,20 +83,10 @@ function knightMoves(start, end) {
     linkedlist.append(move);
     queue.push(linkedlist);
   });
+  searchBFS(queue, end);
   // if (knightGraph[positionToInt(start)].includes(positionToInt(end))) {
   //   return end;
   // }
 }
 console.table(knightGraph);
 knightMoves([1, 1], 2);
-
-function findLastNode(node) {
-  if (node.next === null) return node;
-  return findLastNode(node.next);
-}
-
-function searchBFS(queue, end) {
-  const current = findLastNode(queue.shift());
-  if (knightGraph[current].includes(end)) {
-  }
-}
