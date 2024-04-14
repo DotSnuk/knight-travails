@@ -1,3 +1,5 @@
+import createList from './linkedlist.js';
+
 function positionToInt(arr) {
   return arr[0] + 8 * arr[1];
 }
@@ -6,6 +8,12 @@ function intToPosition(intgr) {
   const x = intgr % 8;
   const y = Math.floor(intgr / 8);
   return [x, y];
+}
+
+function createNode(val = null, nxt = null) {
+  const value = val;
+  const next = nxt;
+  return { value, next };
 }
 
 function getCalcSize(pos, size, action) {
@@ -45,7 +53,6 @@ function getPossibleMoves(pos) {
       const move = isMoveLegit(pos, [x, y], comb);
       if (move !== false) {
         possibleMoves.push(positionToInt(move));
-        console.log(`Possible move from ${pos}: ${move}`);
       }
     });
   }
@@ -63,7 +70,28 @@ function getGraph() {
 }
 
 const knightGraph = getGraph();
-console.table(knightGraph);
-// const knightMoves = (function knightMoves(start, end) {
 
-// })();
+function knightMoves(start, end) {
+  const queue = [];
+  knightGraph[positionToInt(start)].forEach(move => {
+    const linkedlist = createList();
+    linkedlist.append(move);
+    queue.push(linkedlist);
+  });
+  // if (knightGraph[positionToInt(start)].includes(positionToInt(end))) {
+  //   return end;
+  // }
+}
+console.table(knightGraph);
+knightMoves([1, 1], 2);
+
+function findLastNode(node) {
+  if (node.next === null) return node;
+  return findLastNode(node.next);
+}
+
+function searchBFS(queue, end) {
+  const current = findLastNode(queue.shift());
+  if (knightGraph[current].includes(end)) {
+  }
+}
