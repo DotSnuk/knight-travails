@@ -71,22 +71,35 @@ function getGraph() {
 
 const knightGraph = getGraph();
 
+function getCopy(original) {
+  const newList = createList();
+  original.getArray().forEach(position => {
+    newList.append(position);
+  });
+  return newList;
+}
+
 function searchBFS(queue, end) {
   const current = queue.shift();
-  console.log(current.getValue());
+  if (knightGraph[current.getValue()].includes(end)) {
+    current.append(end);
+    return current;
+  }
+  knightGraph[current.getValue()].forEach(move => {
+    const copy = getCopy(current);
+    copy.append(move);
+    queue.push(copy);
+  });
+  return searchBFS(queue, end);
 }
 
 function knightMoves(start, end) {
   const queue = [];
-  knightGraph[positionToInt(start)].forEach(move => {
-    const linkedlist = createList();
-    linkedlist.append(move);
-    queue.push(linkedlist);
-  });
-  searchBFS(queue, end);
-  // if (knightGraph[positionToInt(start)].includes(positionToInt(end))) {
-  //   return end;
-  // }
+  const linkedlist = createList();
+  linkedlist.append(positionToInt(start));
+  queue.push(linkedlist);
+  const closest = searchBFS(queue, positionToInt(end));
+  console.log(closest.stringify());
 }
 console.table(knightGraph);
-knightMoves([1, 1], 2);
+knightMoves([1, 1], [7, 7]);
