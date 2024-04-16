@@ -93,13 +93,22 @@ function searchBFS(queue, end) {
   return searchBFS(queue, end);
 }
 
+function displayPath(path) {
+  console.log(
+    `Congrats! You made it in ${path.getSize() - 1} moves. Here's your path:`,
+  );
+  path.getArray().forEach(move => {
+    console.log(intToPosition(move));
+  });
+}
+
 function knightMoves(start, end) {
   const queue = [];
   const linkedlist = createList();
   linkedlist.append(positionToInt(start));
   queue.push(linkedlist);
   const closest = searchBFS(queue, positionToInt(end));
-  console.log(closest.stringify());
+  displayPath(closest);
 }
 console.table(knightGraph);
-knightMoves([1, 1], [7, 7]);
+knightMoves([1, 1], [2, 7]);
